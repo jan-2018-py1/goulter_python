@@ -1,0 +1,13 @@
+<html>
+        <head>
+            <title>Counter</title>
+        </head>
+        <body>
+            <h1>This is RESET page</h1>
+            <H3>{{session['counter']}} times</H3>
+
+           <form action='/doreset' method='post'>
+               <input type='submit' value='RESET'>
+           </form>
+        </body>
+    </html>
