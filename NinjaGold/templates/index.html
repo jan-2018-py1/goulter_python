@@ -39,13 +39,13 @@
 
 
             {% for i in session['history'] %}
-                {% if session['currentWin'] > 0 %}
+                {% if i['currentWin'] > 0 %}
                     <div class='winningColor'>
-                        You Just Won {{ i }}
+                        You Earned {{ i['currentWin']}} golds from the {{ i['currentPlace']}}!({{i['timeStamp']}})
                     </div>
-                {% elif session['currentWin'] < 0 %}
-                    <div class='losingColor'>
-                        You Just Lost {{ i }}
+                {% else %}
+                    <div class="losingColor">
+                        Entered a {{ i['currentPlace']}} and lost {{ i['currentWin'] }} golds...Ouch
                     </div>
                 {% endif %}
             {% endfor %}

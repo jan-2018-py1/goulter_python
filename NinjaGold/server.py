@@ -72,51 +72,50 @@ def index():
       session['yourGold'] = 0
       session['currentWin'] = 0
       session['currentPlace'] = 'Glens House'
-      tempStringList = ['The Game Started']
+      # tempStringList = ['The Game Started']
       session['history']=[]
       return render_template("index.html")
 
 @app.route('/process', methods=['POST'])
 def process():
-    try:
-      tempStringList = session['history']
-    except KeyError:
-      tempStringList = []
+    # try:
+    #   # tempStringList = session['history']
+    # except KeyError:
+    #   # tempStringList = []
+    houseDict = {}
+    session.modified = True
     if request.form['building'] == 'farm':
-      session['currentPlace'] = 'farm'
-      session['currentWin'] = int(random.randrange(9, 21))
-      session['yourGold'] += session['currentWin']
-      tempStringList = 'You just won ' + str(session['currentWin'])
-      session['history'].append(tempStringList)
+      houseDict['currentPlace'] = 'farm'
+      houseDict['timeStamp'] = datetime.now().strftime("%Y/%m/%d %I:%m:%p")
+      houseDict['currentWin'] = int(random.randrange(9, 21))
+      session['yourGold'] += houseDict['currentWin']
+      session['history'].append(houseDict)
       return redirect('/')
     elif request.form['building'] == 'cave':
-      session['currentPlace'] = 'cave'
-      session['currentWin'] = random.randrange(4, 11)
-      session['yourGold'] += session['currentWin']
-      tempStringList = 'You just won ' + str(session['currentWin'])
-      session['history'].append(tempStringList)
+      houseDict['currentPlace'] = 'cave'
+      houseDict['currentWin'] = int(random.randrange(4, 11))
+      session['yourGold'] += houseDict['currentWin']
+      session['history'].append(houseDict)
       return redirect('/')
     elif request.form['building'] == 'house':
-      session['currentPlace'] = 'house'
-      session['currentWin'] = random.randrange(1, 6)
-      session['yourGold'] += session['currentWin']
-      tempStringList = 'You just won ' + str(session['currentWin'])
-      session['history'].append(tempStringList)
+      houseDict['currentPlace'] = 'cave'
+      houseDict['currentWin'] = int(random.randrange(1, 6))
+      session['yourGold'] += houseDict['currentWin']
+      session['history'].append(houseDict)
       return redirect('/')
     else:
-      session['currentPlace'] = 'casino'
-      session['currentWin'] = random.randrange(-51, 51)
-      session['yourGold'] += session['currentWin']
+      houseDict['currentPlace'] = 'casino'
+      houseDict['currentWin'] = int(random.randrange(-51, 51))
+      session['yourGold'] += houseDict['currentWin']
+      session['history'].append(houseDict)
       return redirect('/')
+      
 
 
 
 @app.route('/doreset', methods=['POST'])
 def doreset():
-   session.pop('yourGold')
-   session.pop('currentWin')
-   session.pop('currentPlace')
-   session.pop('history')
+   session.clear()
    return redirect('/')
 
 app.run(debug=True) # run our server
