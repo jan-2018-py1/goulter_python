@@ -50,6 +50,7 @@ import random # import the random module
 def index():
     
     if 'yourGold' in session.keys():
+      # some debug to the command line
       print '******your gold******' , session['yourGold']
       print '******current win******' , session['currentWin']
       print '******current place******' , session['currentPlace']
@@ -57,22 +58,11 @@ def index():
         print '******current history******' , session['history']
       except KeyError:
         session['history']=[]
-      # del session['yourGold']
-      # del session['currentWin']
-      # del session['currentPlace']
-      #session.pop('history')
-      # del session['yourGold']
-      # del session['currentWin']
-      # del session['currentPlace']
-      # del session['history']
-      
       return render_template('index.html')
     else:
-      print '************HERE**************'
       session['yourGold'] = 0
       session['currentWin'] = 0
       session['currentPlace'] = 'Glens House'
-      # tempStringList = ['The Game Started']
       session['history']=[]
       return render_template("index.html")
 
@@ -93,25 +83,25 @@ def process():
       return redirect('/')
     elif request.form['building'] == 'cave':
       houseDict['currentPlace'] = 'cave'
+      houseDict['timeStamp'] = datetime.now().strftime("%Y/%m/%d %I:%m:%p")
       houseDict['currentWin'] = int(random.randrange(4, 11))
       session['yourGold'] += houseDict['currentWin']
       session['history'].append(houseDict)
       return redirect('/')
     elif request.form['building'] == 'house':
-      houseDict['currentPlace'] = 'cave'
+      houseDict['currentPlace'] = 'house'
+      houseDict['timeStamp'] = datetime.now().strftime("%Y/%m/%d %I:%m:%p")
       houseDict['currentWin'] = int(random.randrange(1, 6))
       session['yourGold'] += houseDict['currentWin']
       session['history'].append(houseDict)
       return redirect('/')
     else:
       houseDict['currentPlace'] = 'casino'
+      houseDict['timeStamp'] = datetime.now().strftime("%Y/%m/%d %I:%m:%p")
       houseDict['currentWin'] = int(random.randrange(-51, 51))
       session['yourGold'] += houseDict['currentWin']
       session['history'].append(houseDict)
       return redirect('/')
-      
-
-
 
 @app.route('/doreset', methods=['POST'])
 def doreset():
