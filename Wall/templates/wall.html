@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- link the flask way -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/myjs.js') }}"></script> -->
+    <title>It's FelineBook!</title>
+<html>
+<body>
+    <div id='header'>
+        Wall
+        Welcome {{user.first_name}}
+        <a href="/logout">Logout</a>
+    </div>
+
+	<div id="wrapper">
+            <div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                 {% if messages %}
+                    {% for category, message in messages %}
+                        <div id="{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                 {% endif %}
+                {% endwith %}
+            </div>
+            <!-- Create Message -->
+            <div id = 'message'>
+                <form action='/insertMessage' method='post'>
+                        <p>Post a Message:</p>
+                        <input type='text' name='messagecontent'/>
+                        <input type='submit' value='Submit'/>
+                </form>
+            </div>
+            
+			{% for message in messages: %}
+            <div id = 'messageblock'>
+                <div id = 'messageuser'>
+                    {{message['first_name']}} {{message['last_name']}} - {{message['created_at'].strftime("%B %d %Y")}} 
+                </div>
+                <div id = 'messagecontent'>
+                    {{message['message']}}
+                </div>  
+            </div>
+
+            
+              {% for comment in comments: %}
+                {% if comment['message_id'] == message['id'] %}
+                <div id = 'commentblock'>
+                    <div id = 'commentuser'>
+                        {{comment['first_name']}} {{comment['last_name']}} - {{comment['created_at'].strftime("%B %d %Y")}}
+                    </div>
+                    <div id = 'commentcontent'>
+                        {{comment['comment']}}
+                    </div>
+                </div>
+                {% endif %}
+              {% endfor %} 
+            
+              <!--Create Comment-->
+            <div id = 'comment'>
+                <form action='/insertComment' method='post'>
+                    <p>Post a Comment:</p>
+                    <input type='text' name='commentcontent'>
+                    <input type="hidden" name="messageid" value = "{{message['id']}}">
+                    <input type='submit' value='Submit'>
+                </form>
+            </div>
+            
+            {% endfor %}
+            
+    </div>	
+
+	
+</body>
+</html>
