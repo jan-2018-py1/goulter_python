@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>charged you for:{{request.session.price}}</p>
+    <p>you have ordered this many items: {{request.session.count}}  </p>
+    <p>your purchase history total: {{request.session.grandtotal}}  </p>
+    <a href="/amadon">back</a>
+
+</body>
+</html>
