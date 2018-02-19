@@ -1,0 +1,22 @@
+<html>
+    <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'srusers_app/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+      <title>Add user</title>
+    </head>
+    <body>
+      <div id = 'wrapper'>
+        <!-- we can use the line below to see all of our data in our template -->
+        <!-- with all the data we can then construct a more structured output -->
+        <h2>Add a new user</h2>
+        <form action='/users/create/' method='POST'>
+          {% csrf_token %}
+          <p><label for="firstname">First Name:<input type="text" name="first_name" id="first_name"></label></p>
+          <p><label for="lastname">Last Name:<input type="text" name="last_name" id="last_name"></label></p>
+          <p><label for="email">Email:<input type="text" name="email" id="email"></label></p>
+          <input type="submit" value="Add"></p>
+        </form>
+       <a href="/users">Go Back</a>
+      </div>
+    </body>
+</html>
