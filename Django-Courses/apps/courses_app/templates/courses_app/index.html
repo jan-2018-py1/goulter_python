@@ -1,0 +1,52 @@
+<html>
+      <head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'courses_app/css/style.css' %}" media="screen" title="no title"  charset="utf-8">
+        <title>Friends</title>
+      </head>
+      <body>
+        <div id = 'wrapper'>
+            {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li>
+                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+                    {{ message }}
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            <h2>Add a new course</h2>
+            <form action='/create/' method='POST'>
+              {% csrf_token %}
+              <p><label for="name">Name:<input type="text" name="name" id="name"></label></p>
+              <p><label for="description">Description:<input type="text" name="description" id="description"></label></p>
+              <input type="submit" value="Add"></p>
+            </form>
+
+          <!-- we can use the line below to see all of our data in our template -->
+          <!-- with all the data we can then construct a more structured output -->
+          <table border = 1>
+            <tr>
+              <th>Course Name</th>
+              <th>Description</th>
+              <th>Date Added</th>
+              <th>Actions</th>
+            </tr>
+
+            
+        
+            {% for course in all_courses %}
+              <tr>
+                <td>{{course.name}}</td>
+                <td>{{course.description}}</td>
+                <td>{{course.created_at}}</td>
+                <td><a href="/courses/destroy/{{course.id}}">remove</a></td>
+              </tr>
+            {% endfor %}
+          </table>
+          <!-- <a href="/users/new">Add User</a> -->
+        </div>
+      </body>
+</html>
