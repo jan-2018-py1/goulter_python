@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>User Alias: {{u.alias}}</p>
+    <p>Name: {{u.name}}</p>
+    <p>Email: {{u.email}}</p>
+    <p>Total Reviews: {{total_reviews}}</p>   
+    <p>Book Reviews</p>
+    {% for data in reviews %}
+        <p>Title:  <a href="/books/{{data.id}}">{{data.title}}</a></p>
+    {% endfor %}
+
+    <!-- {% for data in review %}
+        <p><a href="/books/{{data.books.id}}">{{data.books.title}}</a></p>
+    {% endfor %} -->
+</body>
+</html>

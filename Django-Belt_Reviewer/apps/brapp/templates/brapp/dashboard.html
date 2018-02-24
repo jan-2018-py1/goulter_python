@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<!-- <h1>Welcome {{request.session.first_name}}</h1>
+	your registered. -->
+    Welcome {{user}} <a href="/logout">Logout</a>
+    <a href="/books/add">add book and review</a>
+	<!-- <a href="/logout">Logout</a> -->
+	<p>Recent Book Reviews</p>
+		{% for data in 3rev %}
+			<p><a href="/books/{{data.books.id}}">{{data.books.title}}</a></p>
+			<p>{{data.stars}} stars</p>
+			<p><a href="/user/{{data.users.id}}">{{data.users}}</a> says {{data.description}}</p>
+			<p>{{data.created_at}}</p>
+
+		{% endfor %}
+			<!-- <p>data.</p> -->
+	<p>Other books with reviews</p>
+	
+    {% for data in reviews %}
+		<p>Title:  <a href="/books/{{data.id}}">{{data.title}}</a></p>
+	{% endfor %}
+
+	
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <p>The name of the book is {{title}}</p>
+    <p>Author: {{author}}</p>
+    <h2>Reviews:</h2>
+    {% for data in review %}
+        <p>{{data.description}}  {{data.stars}} stars {{data.users}}</p>
+
+        {% if request.session.id == data.users.id %}
+			<a href="/delete_review/{{data.id}}/{{bookid}}">delete</a>
+		{% endif %}
+
+
+    {% endfor %}
+    <h2>Add Review</h2>
+    <form action='/books/processreview/{{bookid}}/' method='post'>
+        {% csrf_token %}
+        <!-- <div id='fields'> -->
+            <!-- <p>Book Title : <input type='text' name={{title}}></p> -->
+            <input type="hidden" name="title" value={{title}}>
+            <input type="hidden" name="title" value={{title}}>
+            <p>Review : <textarea name="review" rows="10" cols="30"></textarea></p>
+            <p>Rating: <select name="stars">
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+                stars
+            </p>
+            <input type='submit' value='Submit'>
+    </form>
+</body>
+</html>

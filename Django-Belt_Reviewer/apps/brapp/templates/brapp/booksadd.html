@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action='/books/processbook/' method='post'>
+        {% csrf_token %}
+        <!-- <div id='fields'> -->
+            <p>Book Title : <input type='text' name='title'></p>
+            <p>Author:</p>
+            <p>Choose from the list: <select name="authors">
+                    <option value="Abe Aullor">Abe Aullor</option>
+                    <option value="Arturo Authorini">Arturo Authorini</option>
+                    <option value="John McAuthorson">John McAuthorson</option>
+                </select>
+            </p>
+
+            <p>Or Add a new Author : <input type='text' name='author'></p>
+            <p>Review : <textarea name="review" rows="10" cols="30"></textarea></p>
+            <p>Rating: <select name="stars">
+                    <option value="3">3</option>
+                    <option value="2">2</option>
+                    <option value="1">1</option>
+                </select>
+                stars
+            </p>
+            <!-- <p>Email:</p>
+            <p>Alias: </p>
+            <p>Password:</p>
+            <p>Password Confirmation</p>
+        </div>
+        <div class='values'>
+            <p><input type='text' name='name'></p>
+            <p><input type='text' name='email'></p>
+            <p><input type='text' name='alias'></p>
+            <p><input type='text' name='password'></p>
+            <p><input type='text' name='confpassword'></p>
+        </div> -->
+        <input type='submit' value='Submit'>
+    </form>
+</body>
+</html>
